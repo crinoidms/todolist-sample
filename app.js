@@ -6,10 +6,10 @@ const todos = [];
 
 var requestListener = (req, res) => {
     const headers = {
-        'Access-Control-Allow-Headers': 'Content"ype, Authorization',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
-        "Content-Type": "application/json"
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, Content-Length, X-Requested-With',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'PATCH, POST, GET,OPTIONS,DELETE',
+     'Content-Type': 'application/json'
     }
     let body = "";
     req.on('data', chunk =>{
