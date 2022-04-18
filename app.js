@@ -70,8 +70,46 @@ var requestListener = (req, res) => {
       } else {
         errHandle(res);
       }
-      
-  } else if (req.method==="OPTIONS") {
+  } else if ( req.url.startsWith("/todos/") && req.method==="PATCH" ) {
+    req.on('end', () => {
+      try {
+        const id = req.url.split('/').pop();
+        const index = todos.findIndex( element => element.id === id );
+        console.log(index, id);
+        console.log(todos);
+        if( index !== -1) {
+          todos.splice(index, 1);
+          res.writeHead( 200, headers);
+          res.write(JSON.stringify({
+            "status": "success",
+            "data": todos
+          }));
+          res.end();
+        } else {
+          errHandle(res);
+        }
+        const title = JSON.parse(body).title;
+        console.log(title);
+        if ( title !== undefined) {
+          const newTodo = {
+            "title": title,
+            "id": uuidv4()
+          }
+          todos.push(newTodo);
+          res.writeHead( 200, headers);
+          res.write(JSON.stringify({
+            "status": "success",
+            "data": todos
+          }));
+          res.end();
+        } else {
+          errHandle(res);
+        }
+      } catch (error) {
+        errHandle(res);
+      }
+    })
+} else if (req.method==="OPTIONS") {
         res.writeHead( 200, headers);
         res.end();
     } else {
@@ -85,7 +123,8 @@ var requestListener = (req, res) => {
 }
 
 var server = http.createServer(requestListener);
-server.listen(3000);
+server.listen( process.env.PORT || 3005);  // heroku 設定用
+// server.listen(3005);
 
 
 // db.posts.insertOne({
