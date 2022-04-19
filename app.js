@@ -70,32 +70,18 @@ var requestListener = (req, res) => {
       } else {
         errHandle(res);
       }
+      // 確定有 id
   } else if ( req.url.startsWith("/todos/") && req.method==="PATCH" ) {
     req.on('end', () => {
+      // 確定 資料類型為JSON，不然 JSON.parse 就錯誤進到 catch 去了
       try {
         const id = req.url.split('/').pop();
         const index = todos.findIndex( element => element.id === id );
-        console.log(index, id);
-        console.log(todos);
-        if( index !== -1) {
-          todos.splice(index, 1);
-          res.writeHead( 200, headers);
-          res.write(JSON.stringify({
-            "status": "success",
-            "data": todos
-          }));
-          res.end();
-        } else {
-          errHandle(res);
-        }
         const title = JSON.parse(body).title;
-        console.log(title);
-        if ( title !== undefined) {
-          const newTodo = {
-            "title": title,
-            "id": uuidv4()
-          }
-          todos.push(newTodo);
+        // 確定有那筆 id
+        // 確定有 title 資料
+        if( index !== -1 && title !== undefined) {
+          todos[index].title = title;
           res.writeHead( 200, headers);
           res.write(JSON.stringify({
             "status": "success",
@@ -126,43 +112,3 @@ var server = http.createServer(requestListener);
 server.listen( process.env.PORT || 3005);  // heroku 設定用
 // server.listen(3005);
 
-
-// db.posts.insertOne({
-// 	"name":"貼文姓名",
-//     "image":"貼文圖片",
-// "content":"貼文內容",
-// "likes":2,
-// "comments":355,
-// "createdAt":"發文時間",
-// "type":"貼文種類",
-// "tags":"貼文標籤",
-// })
-
-// const checkScore = new Promise( score => {
-//     if( score >= 60 ) {
-//         console.log(score);
-//     } else {
-//         console.log("不及格");
-//     }
-// })
-
-
-// const checkScore = (score) => {
-//     return new Promise(function(resolve, reject) {
-//       if (score >= 60) {
-//         resolve(scroe + "及格");
-//       } else {
-//         reject("不及格");
-//       }
-//     })
-//   }
-
-// const randomScore = Math.round(Math.random()*100);
-
-// checkScore(randomScore)
-//   .then((res)=>{
-//     console.log(res);
-//   })
-//   .catch((error)=>{
-//     console.log(error);  
-//   });
