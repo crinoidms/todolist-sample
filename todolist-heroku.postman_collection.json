@@ -1,0 +1,72 @@
+{
+	"variables": [],
+	"info": {
+		"name": "todolist-heroku",
+		"_postman_id": "d0825c1c-5dbe-c5e5-5cdb-22ffdecbb372",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "取得所有",
+			"request": {
+				"url": "https://sheltered-dusk-08694.herokuapp.com/todos",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "新增",
+			"request": {
+				"url": "https://sheltered-dusk-08694.herokuapp.com/todos",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"今天要刷牙\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "刪除單筆",
+			"request": {
+				"url": "https://sheltered-dusk-08694.herokuapp.com/todos/e82a6f59-ec73-4bdb-b32c-531ae44feeb3",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "刪除所有",
+			"request": {
+				"url": "https://sheltered-dusk-08694.herokuapp.com/todos",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "修改單筆",
+			"request": {
+				"url": "https://sheltered-dusk-08694.herokuapp.com/todos/1505ad4b-7922-4ab8-ba4c-6adc4211bd21",
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"今天要洗臉\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
